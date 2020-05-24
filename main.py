@@ -148,20 +148,21 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
                 # ----------------------------
 
                 # ----- WEIGHT TRACKING ---------
-                weight_norms = np.array([np.linalg.norm(p.data.flatten().numpy()) for p in model.parameters()])
+                weight_norms = np.array([np.linalg.norm(p.data.flatten().numpy(), ord='fro') for p in model.parameters()])
                 prod_weight_norm = np.prod(weight_norms)
                 prod_weight_norm_lst.append(prod_weight_norm)
 
-                inv_weight_norm_params = np.array([1 + 1.0/(np.linalg.norm(p.data.flatten().numpy())) for p in model.parameters()])
+                inv_weight_norm_params = np.array([1 + 1.0/(np.linalg.norm(p.data.flatten().numpy(), ord='fro')) for p in model.parameters()])
                 inv_weight_norm = np.prod(inv_weight_norm_params)
                 inv_norm_lst.append(inv_weight_norm)
 
-                weight_norms = np.array([np.linalg.norm(p.data.flatten().numpy(), ord=2) for p in model.parameters()])
+                weight_norms = np.array([np.linalg.norm(p.data.numpy(), ord=2) for p in model.parameters()])
+                import pdb; pdb.set_trace()
                 spectral_norm = np.prod(weight_norms)
                 spectral_norm_lst.append(spectral_norm)
                 # -------------------------------
 
-                # ---- GENERALIZATIN BOUND -----
+                # ---- GENERALIZATIoN BOUND -----
                 generalization_term = np.sqrt(prod_weight_norm + inv_weight_norm)
                 generalization_term_lst.append(generalization_term)
 
