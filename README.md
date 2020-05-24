@@ -1,1 +1,1 @@
-# generalization_bound_emp
+# weight_norm_noise
