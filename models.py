@@ -76,12 +76,12 @@ class MLP(nn.Module):
     def forward(self, x):
         x = x.view(-1, self._n_units[0])
         out = self._layers[0](x)
-        temp_sum = torch.sum(out)
-        out = out / temp_sum
+        # temp_sum = torch.sum(out)
+        # out = out / temp_sum
         for layer in self._layers[1:]:
             out = F.relu(out)
             out = layer(out)
-            temp_sum = torch.sum(out)
-            out = out/temp_sum
+            # temp_sum = torch.sum(out)
+            # out = out/temp_sum
 
         return out
