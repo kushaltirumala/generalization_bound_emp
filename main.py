@@ -157,7 +157,6 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
                 inv_norm_lst.append(inv_weight_norm)
 
                 weight_norms = np.array([np.linalg.norm(p.data.numpy(), ord=2) for p in model.parameters()])
-                import pdb; pdb.set_trace()
                 spectral_norm = np.prod(weight_norms)
                 spectral_norm_lst.append(spectral_norm)
                 # -------------------------------
