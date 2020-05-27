@@ -218,4 +218,4 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
 
 if __name__ == "__main__":
     mlp_model = load_model(10)
-    run_trial_with_set_parameters(batch_size=512, num_iterations=5000, model=mlp_model, lr=0.01, dataset_name="MNIST")
+    run_trial_with_set_parameters(batch_size=512, num_iterations=10000, model=mlp_model, lr=0.01, dataset_name="CIFAR10")
