@@ -9,11 +9,13 @@ import os
 def create_plots(data_directory, experiment_name):
     prod_weight_norm_base = f"{experiment_name}-prod_weight_norm"
     loss_base = f"{experiment_name}-trainloss"
+    train_accuracy_base = f"{experiment_name}-trainaccuracy"
     test_loss_base = f"{experiment_name}-testloss"
     test_accuracy_base = f"{experiment_name}-testaccuracy"
     spectral_norm_base = f"{experiment_name}-spectralnorm"
     inv_norm_base = f"{experiment_name}-invnorm"
     generalization_base = f"{experiment_name}-generalizationterm"
+
 
     prod_weight_norm_arr = np.load(os.path.join(data_directory, f"{prod_weight_norm_base}.npy"))
     plt.plot(prod_weight_norm_arr)
@@ -29,6 +31,14 @@ def create_plots(data_directory, experiment_name):
     plt.xlabel("Updates")
     plt.ylabel("Loss")
     plt.savefig(f"{loss_base}.png")
+    plt.close()
+
+    train_accuracy_arr = np.load(os.path.join(data_directory, f"{train_accuracy_base}.npy"))
+    plt.plot(train_accuracy_arr)
+    plt.title(f"{experiment_name} Train Accuracy")
+    plt.xlabel("Updates")
+    plt.ylabel("Train Accuracy")
+    plt.savefig(f"{train_accuracy_base}.png")
     plt.close()
 
     loss_arr = np.load(os.path.join(data_directory, f"{test_loss_base}.npy"))

@@ -94,6 +94,7 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
     # (num of iterations, 1)
     loss_lst = []
 
+
     # prod weight norm list
     prod_weight_norm_lst = []
 
@@ -108,6 +109,7 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
 
     # test accuracy
     test_accuracies = []
+    train_accuracies = []
 
     # generalization term
     generalization_term_lst = []
@@ -128,6 +130,11 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
                 optimizer.zero_grad()
 
                 outputs = model(inputs)
+
+                predictions = outputs.max(1)[1]
+                total_num_correct = predictions.eq(labels).sum().item()
+                accuracy_for_update = (1.0 * total_num_correct) / (len(labels))
+                train_accuracies.append(accuracy_for_update)
 
                 loss = criterion(outputs, labels)
 
@@ -184,6 +191,7 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
 
 
     loss_lst = np.array(loss_lst)
+    accuracy_lst = np.array(train_accuracies)
     test_losses = np.array(test_losses)
     test_accuracies = np.array(test_accuracies)
     prod_weight_norm_lst = np.array(prod_weight_norm_lst)
@@ -197,6 +205,7 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
 
     np.save(os.path.join(data_directory, str(experiment_name) + "-prod_weight_norm.npy"), prod_weight_norm_lst)
     np.save(os.path.join(data_directory, str(experiment_name) + "-trainloss.npy"), loss_lst)
+    np.save(os.path.join(data_directory, str(experiment_name) + "-trainaccuracy.npy"), accuracy_lst)
     np.save(os.path.join(data_directory, str(experiment_name) + "-testloss.npy"), test_losses)
     np.save(os.path.join(data_directory, str(experiment_name) + "-testaccuracy.npy"), test_accuracies)
     np.save(os.path.join(data_directory, str(experiment_name) + "-spectralnorm.npy"), spectral_norm_lst)
