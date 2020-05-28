@@ -19,10 +19,11 @@ from models import VGGnet, SimpleNet, MLP
 def load_model(num_classes_to_predict):
     # vgg = SimpleNet(num_classes_to_predict)
     low_n_units = [32*32*3, 512, num_classes_to_predict]
-    high_n_units = [32*32*3, 2048, 512, 256, 10]
+    high_n_units = [32*32*3, 2048, 512, 256, num_classes_to_predict]
 
     low_n_units_mnist = [28*28, 256, num_classes_to_predict]
-    model = MLP(low_n_units_mnist)
+    high_n_units_mnist = [28*28, 2048, 1024, 512, 256, num_classes_to_predict]
+    model = MLP(high_n_units_mnist)
     return model
 
 def get_norm_of_tensor(m, np_arr=False):
