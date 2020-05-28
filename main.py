@@ -130,7 +130,6 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
 
                 optimizer.zero_grad()
 
-                import pdb; pdb.set_trace()
 
                 outputs = model(inputs)
 
