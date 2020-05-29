@@ -172,7 +172,7 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
                 # -------------------------------
 
                 # ---- GENERALIZATION BOUND -----
-                generalization_term = np.sqrt(prod_weight_norm + inv_weight_norm)
+                generalization_term = np.sqrt(spectral_norm + inv_weight_norm)
                 generalization_term_lst.append(generalization_term)
 
 
