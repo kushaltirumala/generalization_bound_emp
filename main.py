@@ -20,10 +20,11 @@ def load_model(num_classes_to_predict):
     # vgg = SimpleNet(num_classes_to_predict)
     low_n_units = [32*32*3, 512, num_classes_to_predict]
     high_n_units = [32*32*3, 2048, 512, 256, num_classes_to_predict]
+    lowest_n_units = [32*32*3, 128, num_classes_to_predict]
 
     low_n_units_mnist = [28*28, 256, num_classes_to_predict]
     high_n_units_mnist = [28*28, 512, 256, 128, 64, num_classes_to_predict]
-    model = MLP(high_n_units_mnist)
+    model = MLP(lowest_n_units)
     return model
 
 def get_norm_of_tensor(m, np_arr=False):
@@ -221,4 +222,4 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
 
 if __name__ == "__main__":
     mlp_model = load_model(10)
-    run_trial_with_set_parameters(batch_size=250, num_iterations=1000, model=mlp_model, lr=0.01, dataset_name="MNIST")
+    run_trial_with_set_parameters(batch_size=512, num_iterations=5000, model=mlp_model, lr=0.01, dataset_name="CIFAR10")
