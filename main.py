@@ -27,7 +27,7 @@ def load_model(num_classes_to_predict):
     low_n_units_mnist = [28*28, 256, num_classes_to_predict]
     high_n_units_mnist = [28*28, 512, 256, 128, 64, num_classes_to_predict]
 
-    model = MLP(low_n_units_mnist)
+    model = MLP(low_n_units)
     return model
 
 def get_norm_of_tensor(m, np_arr=False):
