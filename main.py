@@ -10,6 +10,8 @@ from plotter import create_plots
 import os
 from models import VGGnet, SimpleNet, MLP
 
+from new_optimizer import NewOptimizer
+
 
 # vary batch size keeping number of iterations consistent,
 # 1. track weight norms
@@ -93,7 +95,8 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
     print("Experiment with batch size " + str(batch_size) + " and num iterations " + str(num_iterations) + " doing one " + str(num_epochs))
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.5)
+    # optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.5)
+    optimizer = NewOptimizer(model.parameters(), lr=lr)
 
     # (num of iterations, 1)
     loss_lst = []
@@ -132,7 +135,6 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
                 inputs, labels = data
 
                 optimizer.zero_grad()
-
 
                 outputs = model(inputs)
 
@@ -223,4 +225,4 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
 
 if __name__ == "__main__":
     mlp_model = load_model(10)
-    run_trial_with_set_parameters(batch_size=2000, num_iterations=1000, model=mlp_model, lr=0.01, dataset_name="MNIST")
+    run_trial_with_set_parameters(batch_size=512, num_iterations=5000, model=mlp_model, lr=0.01, dataset_name="CIFAR10")
