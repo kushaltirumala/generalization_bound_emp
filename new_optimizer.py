@@ -53,7 +53,7 @@ class NewOptimizer(Optimizer):
                 p_norm = p.norm()
 
                 if p_norm > 0.0 and normalization_term > 0.0:
-                    p.data.add_(-group['lr'], 10*final_sub_term * (1.0/normalization_term))
+                    p.data.add_(-group['lr'], final_sub_term * (1.0/normalization_term))
                 else:
                     p.data.add_(-group['lr'], d_p)
                 # p.data /= math.sqrt(1 + group['lr'] ** 2)
