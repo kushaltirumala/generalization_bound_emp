@@ -27,7 +27,7 @@ def load_model(num_classes_to_predict):
     low_n_units_mnist = [28*28, 256, num_classes_to_predict]
     high_n_units_mnist = [28*28, 512, 256, 128, 64, num_classes_to_predict]
 
-    model = MLP(high_n_units)
+    model = MLP(low_n_units)
     return model
 
 def get_norm_of_tensor(m, np_arr=False):
@@ -95,8 +95,8 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
     print("Experiment with batch size " + str(batch_size) + " and num iterations " + str(num_iterations) + " doing one " + str(num_epochs))
 
     criterion = nn.CrossEntropyLoss()
-    # optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.5)
-    optimizer = NewOptimizer(model.parameters(), lr=lr, p_bound=2.0)
+    optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.0, weight_decay=0.5)
+    # optimizer = NewOptimizer(model.parameters(), lr=lr, p_bound=2.0)
 
     # (num of iterations, 1)
     loss_lst = []
@@ -225,4 +225,4 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
 
 if __name__ == "__main__":
     mlp_model = load_model(10)
-    run_trial_with_set_parameters(batch_size=512, num_iterations=10000, model=mlp_model, lr=0.01, dataset_name="CIFAR10")
+    run_trial_with_set_parameters(batch_size=512, num_iterations=6000, model=mlp_model, lr=0.01, dataset_name="CIFAR10")
