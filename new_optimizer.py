@@ -38,15 +38,16 @@ class NewOptimizer(Optimizer):
 
                 d_p = p.grad.data
 
-                frob_norm_term = p.data.norm() ** 2
-                frob_deriv = 2*p.data
+                # frob_norm_term = p.data.norm() ** 2
+                # frob_deriv = 2*p.data
 
                 U, S, V = torch.svd(p.data)
-                sing_val_term = S[0]
+                # sing_val_term = S[0]
                 sing_val_derivative = U[0].view(U.shape[0], 1) @ V[:, 0].view(1, V.shape[0])
+                #
+                # reg_term = (sing_val_derivative * frob_norm_term - frob_deriv * sing_val_term)/(frob_norm_term * frob_norm_term)
 
-                reg_term = (sing_val_derivative * frob_norm_term - frob_deriv * sing_val_term)/(frob_norm_term * frob_norm_term)
-
+                reg_term = sing_val_derivative
                 final_sub_term = d_p + reg_term
 
                 normalization_term = final_sub_term.norm()
