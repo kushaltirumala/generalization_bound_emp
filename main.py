@@ -96,7 +96,7 @@ def run_trial_with_set_parameters(batch_size=128, num_iterations=200, model=None
 
     criterion = nn.CrossEntropyLoss()
     # optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.0, weight_decay=0.5)
-    optimizer = NewOptimizer(model.parameters(), lr=lr)
+    optimizer = NewOptimizer(model.parameters(), lr=lr, p_bound=0.5)
 
     # (num of iterations, 1)
     loss_lst = []
